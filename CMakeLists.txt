@@ -1,27 +1,13 @@
 cmake_minimum_required(VERSION 3.19)
+project(CMakeStarterProject CXX)
 
-project(CMakeStarterProject)
-
-# specify the C++ standard
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_C_COMPILER "clang")
-set(CMAKE_CXX_COMPILER "clang++")
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
+include(cmake/SetCompilerWarnings.cmake)
 
 # add the executable
-add_executable(CMakeStarterProject src/main.cpp)
+add_executable(app src/main.cpp)
+add_library(project_options INTERFACE)
 
-target_compile_options(CMakeStarterProject
-    PUBLIC -O3
-    PUBLIC -pthread
-    PUBLIC -Werror
-    PUBLIC -Wall
-    PUBLIC -Wextra
-    PUBLIC -Wpedantic
-    PUBLIC -Wshadow
-    PUBLIC -Wconversion)
+target_compile_features(project_options INTERFACE cxx_std_20)
+set_project_warnings(project_options)
 
-target_link_libraries(CMakeStarterProject
-    PRIVATE Threads::Threads)
+target_link_libraries(app project_options)
