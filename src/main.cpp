@@ -11,7 +11,7 @@ concept Integral = requires(Int i) {
 
 auto add(Integral auto x, Integral auto y) -> Integral auto { return x + y; }
 
-int main() {
+auto main() -> int {
     Poco::MD5Engine md5;
     Poco::DigestOutputStream ds(md5);
     ds << "abcdefghijklmnopqrstuvwxyz";
